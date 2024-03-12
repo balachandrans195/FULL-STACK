@@ -1,0 +1,65 @@
+/* patientgivemed.component.scss */
+
+h1 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    transition: border-color 0.3s ease;
+  
+    &:hover {
+      border-color: #66afe9; /* Change border color on hover */
+    }
+  }
+  
+  label {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  
+  input {
+    width: 96%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    transition: border-color 0.3s ease;
+  
+    &:hover {
+      border-color: #66afe9; /* Change border color on hover */
+    }
+  }
+  
+  button {
+    display: block;
+    width: 101%;
+    padding: 10px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 7%;
+    transition: background-color 0.3s ease;
+  
+    &:hover {
+      background-color: #45a049; /* Darker green on hover */
+    }
+  }
+
+  .bala{
+    width: 40%;
+    margin-left: 30%;
+    margin-top: 10%;
+    
+  }
+  

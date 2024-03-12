@@ -1,0 +1,54 @@
+<!-- receptionist.component.html -->
+
+<title>Medical Center</title>
+<h1>Welcome Receptionist</h1>
+
+<!-- Navigation Buttons -->
+<div class="button-container">
+  <a routerLink="/recep-add-patient" class="button">Add Patient</a>
+  <a routerLink="/recep-book-appointment" class="button">Book Appointment</a>
+  <a routerLink="/check-doctor-availability" class="button">Check Doctor Availability</a>
+  <a routerLink="/login" class="button"><--logout--</a>
+</div>
+
+<div>
+  <label for="search">Search:</label>
+  <input
+    type="text"
+    id="search"
+    [(ngModel)]="searchQuery"
+    (input)="filterAppointments()"
+    placeholder="Search by Token No, Register ID, or Staff ID"
+  />
+</div>
+
+<!-- Display Booked Appointments -->
+<div *ngIf="filteredAppointments.length > 0">
+  <h2>Booked Appointments & Appointments Failed to attend</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Appointment ID</th>
+        <th>Token No</th>
+        <!-- <th>Register ID</th>
+        <th>Staff ID</th> -->
+        <th>Appointment Date</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let appointment of filteredAppointments">
+        <td>{{ appointment.appointment_id }}</td>
+        <td>{{ appointment.token_no }}</td>
+        
+        <td>{{ appointment.apnt_date }}</td>
+        <td>
+          <button (click)="deleteAppointment(appointment.appointment_id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div *ngIf="filteredAppointments.length === 0">
+  <p>No booked appointments available.</p>
+</div>

@@ -1,0 +1,18 @@
+<!-- labcare.component.html -->
+
+<div>
+    <h2>Apply Lab Test</h2>
+    <form (ngSubmit)="applyLabTest()" #labTestForm="ngForm">
+      <label for="testName">Test Name:</label>
+      <select id="testName" name="testName" [(ngModel)]="selectedTest" required>
+        <option *ngFor="let test of labTests" [ngValue]="test">{{ test.testName }}</option>
+      </select>
+  
+      <label for="price">Price:</label>
+      <input type="number" id="price" name="price" [value]="selectedTest?.price" readonly>
+  
+      <button type="submit" [disabled]="labTestForm.invalid">Apply Lab Test</button>
+      <button routerLink="/login" >Logout</button>
+    </form>
+  </div>
+  

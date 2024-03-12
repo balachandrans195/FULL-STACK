@@ -1,0 +1,91 @@
+<!-- admin.component.html -->
+
+<div class="container">
+    <h2>Add Staff or Doctor</h2>
+  
+    <button routerLink="/add-staff">Add Staff</button>
+    <button routerLink="/add-doctor">Add Doctor</button>
+  
+    <form [formGroup]="searchForm">
+      <label for="search">Search:</label>
+      <input type="text" id="search" formControlName="search" placeholder="Search by name, phone number, or date of birth">
+    </form>
+  
+    <div *ngIf="staffListFiltered && staffListFiltered.length > 0" class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Staff ID</th>
+            <th>Name</th>
+            <th>Phone Number</th>
+            <th>Address</th>
+            <th>Date of Birth</th>
+            <th>Qualification</th>
+            <th>Salary</th>
+            <th>Date of Joining</th>
+            <th>Email</th>
+            <th>Gender</th>
+            <th>Blood Group</th>
+            <th>Password</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let staff of staffListFiltered">
+            <td>{{ staff.staff_id }}</td>
+            <td>
+              {{ staff.staff_name }}
+              
+            </td>
+
+            <td>
+              <span *ngIf="!staff.isEditing">{{ staff.phno }}</span>
+              <input *ngIf="staff.isEditing" [(ngModel)]="staff.phno" placeholder="Staff phone number">
+            </td>
+
+            <td>
+              <span *ngIf="!staff.isEditing">{{ staff.address }}</span>
+              <input *ngIf="staff.isEditing" [(ngModel)]="staff.address" placeholder="Staff address">
+            </td>
+
+            <td>
+                {{ staff.dob | date }}            
+            </td>
+
+            <td>
+              <span *ngIf="!staff.isEditing">{{ staff.qualification }}</span>
+              <input *ngIf="staff.isEditing" [(ngModel)]="staff.qualification" placeholder="Staff qualification">
+            </td>
+
+            <td>
+              <span *ngIf="!staff.isEditing">{{ staff.salary | currency }}</span>
+              <input *ngIf="staff.isEditing" [(ngModel)]="staff.salary" placeholder="Staff salary">
+            </td>
+
+            <td>
+              <span *ngIf="!staff.isEditing">{{ staff.doj | date }}</span>
+              <input *ngIf="staff.isEditing" [(ngModel)]="staff.doj" placeholder="Staff Date of Joining">
+            </td>
+
+            <td>
+              <span *ngIf="!staff.isEditing">{{ staff.email }}</span>
+              <input *ngIf="staff.isEditing" [(ngModel)]="staff.email" placeholder="Staff email">
+            </td>
+
+            <td>{{ staff.gender }}</td>
+            <td>{{ staff.blood_group }}</td>
+
+            <td>
+              <span *ngIf="!staff.isEditing">{{ staff.password }}</span>
+              <input *ngIf="staff.isEditing" [(ngModel)]="staff.password" placeholder="Staff password">
+            </td>
+
+            <td>
+              <button *ngIf="!staff.isEditing" (click)="startEditing(staff)">Edit</button>
+              <button *ngIf="staff.isEditing" (click)="saveChanges(staff)">Save</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>

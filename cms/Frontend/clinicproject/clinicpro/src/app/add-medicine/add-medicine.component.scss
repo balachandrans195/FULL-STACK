@@ -1,0 +1,40 @@
+/* add-medicine.component.scss */
+
+form {
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #4caf50;
+    border-radius: 8px;
+    background-color: #dff0d8; /* Light green background color */
+  
+    label {
+      margin-bottom: 8px;
+      color: #4caf50; /* Green label color */
+    }
+  
+    input {
+      padding: 8px;
+      margin-bottom: 16px;
+      border: 1px solid #4caf50; /* Green border for input */
+      border-radius: 4px;
+    }
+  
+    button {
+      padding: 10px;
+      background-color: #4caf50; /* Green button background color */
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+  
+      &:hover {
+        background-color: #45a049; /* Darker green on hover */
+      }
+    }
+  }
+  
+  /* Add additional styles or adjust as needed */
+  

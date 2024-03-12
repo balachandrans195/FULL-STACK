@@ -1,0 +1,41 @@
+<div>
+    <h2>WELCOME  LABTECHNICIAN</h2>
+    <button routerLink="/labcare">Patient Care </button>
+    <button>Add test </button>
+    <div>
+      <label for="search">Search:</label>
+      <input type="text" id="search" [(ngModel)]="searchTerm" (input)="searchLabTests()">
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Test ID</th>
+          <th>Test Name</th>
+          <th>Low Range</th>
+          <th>High Range</th>
+          <th>Price</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let labTest of filteredLabTests">
+          <td>{{ labTest.test_id }}</td>
+          <td>{{ labTest.test_name }}</td>
+          <td>{{ labTest.low_range }}</td>
+          <td>{{ labTest.high_range }}</td>
+          <td>
+            <span *ngIf="!labTest.isEditing">{{ labTest.price }}</span>
+            <input *ngIf="labTest.isEditing" [(ngModel)]="labTest.editedPrice" placeholder="Price">
+          </td>
+          <td>
+            <button *ngIf="!labTest.isEditing" (click)="editLabTest(labTest)">Edit</button>
+            <button *ngIf="labTest.isEditing" (click)="saveLabTest(labTest)">Save</button>
+            <button (click)="deleteLabTest(labTest.test_id)">Delete</button>
+
+          </td>
+          
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

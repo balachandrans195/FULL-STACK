@@ -1,0 +1,48 @@
+<!--{% extends 'base.html' %}-->
+
+<!--{% block content %}-->
+<!--    <h2>Rate Movie: {{ movie.title }}</h2>-->
+<!--    <form id="ratingForm">-->
+<!--        {% csrf_token %}-->
+<!--        {{ rating_form.as_p }}-->
+<!--        <button type="button" id="rateButton" data-movie-id="{{ movie.id }}" data-customer-id="{{ customer.id }}" data-profile-id="{{ profile.id }}">Submit Rating</button>-->
+<!--    </form>-->
+<!--{% endblock %}-->
+
+<!--<script>-->
+<!--    document.getElementById('rateButton').addEventListener('click', function () {-->
+<!--        var rating = document.getElementById('id_rating').value;-->
+<!--        var movie_id = this.getAttribute('data-movie-id');-->
+<!--        var customer_id = this.getAttribute('data-customer-id');-->
+<!--        var profile_id = this.getAttribute('data-profile-id');-->
+
+<!--        var data = {-->
+<!--            'rating': rating,-->
+<!--            'csrfmiddlewaretoken': '{{ csrf_token }}',-->
+<!--            'movie_id': movie_id,-->
+<!--            'customer_id': customer_id,-->
+<!--            'profile_id': profile_id-->
+<!--        };-->
+
+<!--        fetch('/rate_movie/' + movie_id + '/' + customer_id + '/' + profile_id + '/', {-->
+<!--            method: 'POST',-->
+<!--            headers: {-->
+<!--                'Content-Type': 'application/json',-->
+<!--                'X-CSRFToken': data.csrfmiddlewaretoken-->
+<!--            },-->
+<!--            body: JSON.stringify(data)-->
+<!--        })-->
+<!--        .then(response => response.json())-->
+<!--        .then(data => {-->
+<!--            if (data.success_message) {-->
+<!--                alert(data.success_message);-->
+<!--            } else {-->
+<!--                alert('Failed to submit rating.');-->
+<!--            }-->
+<!--        })-->
+<!--        .catch(error => {-->
+<!--            console.error('Error:', error);-->
+<!--            alert('An error occurred while submitting the rating.');-->
+<!--        });-->
+<!--    });-->
+<!--</script>-->

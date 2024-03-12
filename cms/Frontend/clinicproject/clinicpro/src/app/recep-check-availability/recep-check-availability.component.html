@@ -1,0 +1,6 @@
+<div *ngFor="let staff of filteredData">
+    <p>
+        {{ staff.staff_name }} - DUTY TIME : {{ staff.Duty_time }}
+        - DEPARTMENT: {{ staff.department | departmentName}}
+    </p>
+</div>

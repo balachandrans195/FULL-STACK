@@ -1,0 +1,104 @@
+<div>
+  <h2>ADD DOCTOR</h2>
+
+  <form (ngSubmit)="registerStaff()" #staffForm="ngForm">
+    <!-- Staff Name -->
+    <div class="form-group">
+      <label for="staff_name">Staff Name:</label>
+      <input nameValidation type="text" id="staff_name" [(ngModel)]="staffData.staff_name" name="staff_name" required>
+    </div>
+
+    <!-- Phone Number -->
+    <div class="form-group">
+      <label for="phno">Phone Number:</label>
+      <input type="tel" id="phno" [(ngModel)]="staffData.phno" name="phno" required minlength="10" maxlength="10"
+        pattern="[0-9]+" (input)="isValidPhoneNumber()">
+      <div *ngIf="!isValidPhoneNumber()">Please enter a valid 10-digit phone number.</div>
+    </div>
+
+    <!-- Address -->
+    <div class="form-group">
+      <label for="address">Address:</label>
+      <textarea id="address" [(ngModel)]="staffData.address" name="address" required></textarea>
+    </div>
+
+    <!-- Date of Birth -->
+    <div class="form-group">
+      <label for="dob">Date of Birth:</label>
+      <input type="date" id="dob" [(ngModel)]="staffData.dob" name="dob" required pattern="\d{4}-\d{2}-\d{2}"
+        title="Enter a valid date in YYYY-MM-DD format">
+    </div>
+
+    <!-- Qualification -->
+    <div class="form-group">
+      <label for="qualification">Qualification:</label>
+      <input nameValidation type="text" id="qualification" [(ngModel)]="staffData.qualification" name="qualification"
+        required placeholder="Enter your Qualification only..">
+    </div>
+
+    <!-- Salary -->
+    <div class="form-group">
+      <label for="salary">Salary:</label>
+      <input type="number" id="salary" [(ngModel)]="staffData.salary" name="salary" required>
+      <div *ngIf="!isValidSalary()">Salary should be above 3000.</div>
+    </div>
+
+    <!-- Department -->
+    <div class="form-group">
+      <label for="department">Department:</label>
+      <select id="department" [(ngModel)]="staffData.department" name="department" required>
+        <option value="1">GYNE</option>
+        <option value="2">CARDIOLOGIST</option>
+        <option value="3">Neurology</option>
+        <!-- Add more departments as needed -->
+      </select>
+    </div>
+
+    <!-- Email -->
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" id="email" [(ngModel)]="staffData.email" name="email" required>
+    </div>
+
+    <!-- Gender -->
+    <div class="form-group">
+      <label for="gender">Gender:</label>
+      <select id="gender" [(ngModel)]="staffData.gender" name="gender" required>
+        <option value="M">Male</option>
+        <option value="F">Female</option>
+      </select>
+    </div>
+
+    <!-- Blood Group -->
+    <div class="form-group">
+      <label for="blood_group">Blood Group:</label>
+      <input type="text" id="blood_group" [(ngModel)]="staffData.blood_group" name="blood_group" required
+        pattern="^(A|B|AB|O)[+-]?(Rh[+-])?$" placeholder="Enter the valid Blood Group">
+    </div>
+
+    <!-- Consultation Fee -->
+    <div class="form-group">
+      <label for="consultation_fee">Consultation Fee:</label>
+      <input type="number" id="consultation_fee" [(ngModel)]="staffData.consultation_fee" name="consultation_fee"
+        required>
+      <div *ngIf="!isValidConsultationFee()">Consultation fee should not be negative.</div>
+    </div>
+
+    <!-- Duty Time -->
+    <div class="form-group">
+      <label for="duty_time">Duty Time:</label>
+      <input type="text" id="duty_time" [(ngModel)]="staffData.Duty_time" name="duty_time"
+        placeholder="Enter 09AM - 10PM Format" required>
+      <div *ngIf="!isValidDutyTime()">Duty time should be in the format of 00AM - 00PM.</div>
+    </div>
+
+    <!-- Password -->
+    <div class="form-group">
+      <label for="password">Password:</label>
+      <input type="password" id="password" [(ngModel)]="staffData.password" name="password" required>
+      <div *ngIf="!isValidPassword()">Password should be at least 6 characters with a combination of alphabets and numbers.</div>
+    </div>
+
+    <button type="submit" [disabled]="!staffForm?.valid || !isValidConsultationFee() || !isValidSalary() || !isValidDutyTime() || !isValidPhoneNumber() || !isValidPassword()">Register Doctor</button>
+  </form>
+</div>

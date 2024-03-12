@@ -1,0 +1,60 @@
+<!-- patient-details.component.html -->
+
+<div *ngIf="receptionistDetails && receptionistDetails.response">
+    <h2>Patient Details</h2>
+    <table>
+        <tr>
+            <th>Data</th>
+            <th>Result</th>
+        </tr>
+        <tr>
+            <td>First Name</td>
+            <td>{{ receptionistDetails.response.first_name }}</td>
+        </tr>
+        <tr>
+            <td>Last Name</td>
+            <td>{{ receptionistDetails.response.last_name }}</td>
+        </tr>
+        <tr>
+            <td>Contact</td>
+            <td>{{ receptionistDetails.response.contact }}</td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td>{{ receptionistDetails.response.email }}</td>
+        </tr>
+        <tr>
+            <td>Address</td>
+            <td>{{ receptionistDetails.response.address }}</td>
+        </tr>
+        <tr>
+            <td>Age</td>
+            <td>{{ receptionistDetails.response.age }}</td>
+        </tr>
+        <tr>
+            <td>Blood Group</td>
+            <td>{{ receptionistDetails.response.blood_group }}</td>
+        </tr>
+        <tr>
+            <td>Date of Birth</td>
+            <td>{{ receptionistDetails.response.dob }}</td>
+        </tr>
+        <tr>
+            <td>Date of Visit</td>
+            <td>{{ receptionistDetails.response.dov }}</td>
+        </tr>
+        <tr>
+            <td>Gender</td>
+            <td>{{ receptionistDetails.response.gender }}</td>
+        </tr>
+        <tr>
+            <td>Height</td>
+            <td>{{ receptionistDetails.response.height }}</td>
+        </tr>
+        <tr>
+            <td>Weight</td>
+            <td>{{ receptionistDetails.response.weight }}</td>
+        </tr>
+        <!-- Add additional fields as needed -->
+    </table>
+</div>

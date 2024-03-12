@@ -1,0 +1,27 @@
+<!-- patient-history.component.html -->
+
+<div *ngIf="diagnosisData && diagnosisData.length > 0">
+    <h2>Diagnosis Data</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Diagnosis Taken</th>
+                <th>Medicine Preferred Earlier</th>
+                <th>Take Taken</th>
+                <th>Notes Taken</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let diagnosis of diagnosisData">
+                <td>{{ diagnosis.diagnosis }}</td>
+                <td>{{ diagnosis.Medicine_prefered }}</td>
+                <td>{{ diagnosis.Take_test }}</td>
+                <td>{{ diagnosis.notes }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div *ngIf="!diagnosisData || diagnosisData.length === 0">
+    <p>No diagnosis data available.</p>
+</div>

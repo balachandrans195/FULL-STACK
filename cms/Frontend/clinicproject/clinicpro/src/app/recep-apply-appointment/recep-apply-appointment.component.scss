@@ -1,0 +1,48 @@
+/* book-appointment-form.component.scss */
+
+:host {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Adjust as needed for vertical centering */
+    width: 60%;
+    margin-left: 20%;
+  }
+  
+  form {
+    width: 50%; /* Adjust the width as needed */
+    text-align: center;
+    padding: 20px;
+    border: 1px solid #ddd; /* Add a border for better visibility */
+    border-radius: 8px; /* Optional: Add rounded corners */
+    margin-bottom: 20px; /* Space between components */
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 8px;
+  }
+  
+  select,
+  input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+  }
+  
+  button {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-bottom: 10px;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  

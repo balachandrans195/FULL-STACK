@@ -1,0 +1,65 @@
+<!-- templates/user/profile_list.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Profiles</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 20px;
+        }
+
+        div {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #fff;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+            margin-left: 10px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .add-profile-link {
+            display: block;
+            margin-top: 20px;
+            font-weight: bold;
+            color: #28a745;
+        }
+
+        .message {
+            color: #dc3545;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+{% for profile in profiles %}
+    <div>
+        {{ profile.namep }} - {{ 'Adult' if profile.is_adult else 'Child' }}
+        {% if not profile.is_default %}
+            <a href="{% url 'delete_profile' profile.id %}">Delete</a>
+        {% endif %}
+    </div>
+{% endfor %}
+
+<a class="add-profile-link" href="{% url 'add_profile' %}">Add Profile</a>
+
+{% if messages %}
+    {% for message in messages %}
+        <div class="message">{{ message }}</div>
+    {% endfor %}
+{% endif %}
+
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recently Watched Movies</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+        }
+        .movie {
+            background-color: #fff;
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .movie h2 {
+            color: #e50914;
+        }
+        .movie a {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #e50914;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .movie a:hover {
+            background-color: #c4080d;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Recently Watched Movies</h1>
+    <div class="movies-list">
+        {% for movie in recently_watched_movies %}
+            <div class="movie">
+                <h2>{{ movie.movie.title }}</h2>
+                <p>{{ movie.movie.description }}</p>
+                <!-- Include other movie details you wish to show -->
+                <a href="{{ movie.movie.url }}">Watch now</a>
+            </div>
+        {% empty %}
+            <p>No recently watched movies found.</p>
+        {% endfor %}
+    </div>
+</div>
+
+</body>
+</html>

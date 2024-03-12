@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Child Profile View</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!-- Add your styles or link to an external stylesheet here -->
+    <style>
+        body {
+    font-family: 'Arial', sans-serif;
+    background-color: #141414; /* Dark background similar to Netflix */
+    margin: 0;
+    padding: 0;
+    color: #fff; /* White text */
+    line-height: 1.6;
+}
+
+h2 {
+    text-align: center;
+    padding: 20px;
+    background-color: #e50914; /* Netflix red color */
+    margin: 0;
+}
+
+#topSearchForm, .search-form {
+    padding: 20px;
+    background-color: #e50914; /* Netflix red color */
+    text-align: center;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+#search {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    width: 60%;
+    margin-right: 10px;
+}
+
+#logout {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    color: #fff;
+    text-decoration: none;
+}
+
+#searchResults, .movie-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin: 0;
+}
+
+.movie-item {
+    background-color: #1c1c1c; /* Dark gray background similar to Netflix */
+    border: 1px solid #444;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.3s ease-in-out;
+    margin: 10px;
+    width: 300px;
+}
+
+.movie-item:hover {
+    transform: scale(1.05); /* Zoom effect on hover */
+}
+
+.movie-details {
+    padding: 15px;
+}
+
+.movie-details img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover; /* Ensure images fill their container without distorting */
+    max-height: 300px; /* Adjusted maximum height for movie posters */
+    transition: transform 0.3s ease-in-out;
+}
+
+.movie-details img:hover {
+    transform: scale(1.1); /* Zoom effect on hover */
+}
+
+h3 {
+    margin-top: 10px;
+    color: #e50914; /* Netflix red color */
+    font-size: 1.2em;
+}
+
+p {
+    margin: 8px 0;
+    font-size: 0.9em;
+    opacity: 0.8;
+}
+
+/* Star rating styles */
+.star-rating {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.star-rating .star {
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #ddd; /* Grey color */
+    margin-right: 5px;
+}
+
+.star-rating .star:hover,
+.star-rating .star.selected {
+    color: #e50914; /* Netflix red color */
+}
+
+/* Submit rating button styles */
+.rate-button {
+    background-color: #e50914; /* Netflix red color */
+    color: #fff; /* White text */
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.rate-button:hover {
+    background-color: #cc0814; /* Darker red on hover */
+}
+    </style>
+</head>
+<body>
+<h2> WELCOME TO TRINEX </h2>
+
+<!-- Top Search Form -->
+<div id="topSearchForm" class="search-form">
+    <form action="{% url 'child_search_movies' %}" method="get">
+        <label for="search">Search:</label>
+        <input type="text" id="search" name="search" placeholder="Search by title, language, genre, cast, director">
+        <a href="{% url 'logout' %}" id="logout">Logout</a>
+    </form>
+</div>
+
+<!-- Container for displaying live search results -->
+<div id="searchResults">
+    <!-- Search results will be added dynamically here -->
+</div>
+
+<h3> TOP PICKS FOR YOU</h3>
+
+<!-- Movie List -->
+<ul class="movie-list" id="movieList">
+    {% for movie in movies %}
+        <li class="movie-item">
+            <div class="movie-details">
+                <a href="{{ movie.url }}" target="_blank">
+                    <img src="{{ movie.poster.url }}" alt="{{ movie.title }} Poster">
+                </a>
+                <h3>{{ movie.title }}</h3>
+                <p><strong>Description:</strong> {{ movie.description }}</p>
+                <p><strong>Release Date:</strong> {{ movie.release_date }}</p>
+                <p><strong>Genres:</strong> {{ movie.genres }}</p>
+                <p><strong>Cast:</strong> {{ movie.cast }}</p>
+            </div>
+            <!-- Star Rating HTML -->
+            <!-- Rating Form -->
+            <div class="rating">
+                {% csrf_token %}
+                <label for="rating">Rate this movie:</label>
+                <!-- Star ratings -->
+                <i class="far fa-star" data-value="1"></i>
+                <i class="far fa-star" data-value="2"></i>
+                <i class="far fa-star" data-value="3"></i>
+                <i class="far fa-star" data-value="4"></i>
+                <i class="far fa-star" data-value="5"></i>
+                <button type="button" class="submit-rating">Submit Rating</button>
+            </div>
+
+        </li>
+    {% endfor %}
+</ul>
+
+<!-- Add jQuery script for live search with AJAX -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Handle star click for rating
+        $('.rating i').on('click', function () {
+            var $star = $(this);
+            var $rating = $star.closest('.rating');
+
+            // Set stars to 'selected' up to the clicked star
+            $star.addClass('fas').removeClass('far');
+            $star.prevAll('i').addClass('fas').removeClass('far');
+            $star.nextAll('i').removeClass('fas').addClass('far');
+        });
+
+        // Handle click on 'Submit Rating' button
+        $('.submit-rating').on('click', function () {
+            var $movieItem = $(this).closest('.movie-item');
+            var movieId = $movieItem.data('movie-id');
+            var rating = $movieItem.find('.fas').length; // Count filled stars
+
+            // AJAX call to submit rating
+            $.ajax({
+                url: "#", // Replace with the actual URL to handle rating submission
+                type: 'POST',
+                data: {
+                    'movie_id': movieId,
+                    'rating': rating,
+                    'csrfmiddlewaretoken': $movieItem.find('[name="csrfmiddlewaretoken"]').val()
+                },
+                success: function(response) {
+                    // Handle success - maybe alert the user or update the page
+                    alert('Rating submitted!');
+                },
+                error: function(xhr, status, error) {
+                    // Handle error
+                    alert('An error occurred: ' + error);
+                }
+            });
+        });
+
+        // Star rating functionality
+        $('.star').on('click', function () {
+            var stars = $(this).parent().children('.star');
+            stars.removeClass('selected'); // Remove selection from all stars
+            $(this).addClass('selected'); // Select the clicked star
+            $(this).prevAll('.star').addClass('selected'); // Select all stars before the clicked star
+        });
+
+        // Submit rating on button click
+        $('.rate-button').on('click', function () {
+            var movieId = $(this).data('movie-id');
+            var rating = $(this).prev('.star-rating').children('.selected').length; // Count selected stars
+
+            // Perform AJAX POST request to submit the rating
+            $.ajax({
+                url: '#', // Replace with your actual endpoint
+                type: 'POST',
+                data: {
+                    'movie_id': movieId,
+                    'rating': rating,
+                    'csrfmiddlewaretoken': '{{ csrf_token }}' // Include CSRF token for Django
+                },
+                success: function (response) {
+                    alert('Rating submitted successfully!'); // Display the alert box on success
+                },
+                error: function (xhr, status, error) {
+                    console.error('An error occurred while submitting the rating:', error);
+                }
+            });
+        });
+    });
+</script>
+
+</body>
+</html>

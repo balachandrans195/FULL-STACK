@@ -1,0 +1,146 @@
+<!-- user/profile.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Page Title</title>
+    <!-- Add the following style directly -->
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: url('/static/pulli.jpeg') center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            color: #fff; /* Text color */
+        }
+
+        .profiles-container {
+            overflow-x: auto; /* Enable horizontal scrolling */
+            white-space: nowrap; /* Keep items in a single line */
+            padding: 20px;
+            display: flex;
+        }
+
+        .profile-section {
+            margin-right: 10px;
+        }
+
+        .adult-profiles {
+            display: flex;
+            flex-wrap: nowrap; /* Ensure adult profiles are in a single line */
+            margin-bottom: 20px;
+        }
+
+        .profile-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            margin-right: 10px;
+            background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black background */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease;
+            text-align: center;
+            width: 150px; /* Adjust the width as needed */
+            overflow: hidden; /* Hide overflow content */
+            height: 200px; /* Set a fixed height */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .profile-card:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .profile-card img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            max-height: 80%; /* Set a maximum height for the image */
+        }
+
+        .default-badge {
+            font-size: 12px;
+            color: #fff;
+            background-color: #e50914; /* Red color for the badge */
+            padding: 4px;
+            border-radius: 4px;
+            margin-top: 5px;
+        }
+
+        .profile-link {
+            text-decoration: none;
+            color: #e50914; /* Red color for the links */
+            font-weight: bold;
+        }
+        .add-profile-link {
+            text-decoration: none;
+            color: #e50914; /* Red color for the links */
+            font-weight: bold;
+            margin-left: 60px;
+        }
+
+        .profile-link:hover, .add-profile-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+
+{% if alert_message %}
+    <script>
+        alert("{{ alert_message }}");
+        window.location.href = "{% url 'profile' customer_id=customer.id %}";
+    </script>
+{% endif %}
+
+<div class="profiles-container">
+    <div class="profile-section">
+        <h3>Child Profile:</h3>
+        <a href="{% url 'child_profile_view' %}" class="profile-link">
+            <div class="profile-card">
+                <span>Child Profile</span>
+            </div>
+        </a>
+
+    </div>
+
+    <div class="profile-section">
+        <h3>Switch Profiles:</h3>
+        <div class="adult-profiles">
+            {% if adult_profiles %}
+                {% for adult_profile in adult_profiles %}
+                    <div class="profile-card">
+                        <span>{{ adult_profile.profilename }}</span>
+                        <img src="{{ adult_profile.avatar.url }}" alt="{{ adult_profile.profilename }} Avatar">
+
+                        {% if adult_profile.is_default %}
+                            <span class="default-badge">(Default)</span>
+                        {% endif %}
+
+                        <!-- Add Update and Delete links -->
+                        <div>
+                            <a href="{% url 'profile_pin' customer.id adult_profile.id %}" class="profile-link">View</a>
+                            <a href="{% url 'update_profile' customer_id=customer.id profile_id=adult_profile.id %}" class="profile-link">Update</a>
+                            <a href="{% url 'delete_profile' customer_id=customer.id profile_id=adult_profile.id %}" class="profile-link">Delete</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="profile-card">
+                    <span>No adult profiles available</span>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Add Profile Option -->
+    <a class="add-profile-link" href="{% url 'profile_creation' customer_id=customer.id %}">Add Profile</a>
+</div>
+
+</body>
+</html>

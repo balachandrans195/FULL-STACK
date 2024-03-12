@@ -1,0 +1,29 @@
+<div *ngIf="appointments.length > 0">
+  <h2>WELCOME, HAVE A NICE DAY</h2>
+  <table class="appointment-table">
+    <thead>
+      <tr>
+        <th>Token No</th>
+        <th>Action</th>
+        <th>Checking</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let appointment of appointments | dateFilterPipe" class="table-row">
+        <td>{{ appointment.token_no }}</td>
+        <td>
+          <button class="action-button" (click)="takeDiagnosis(appointment)">Take Diagnosis</button>
+          <button class="action-button" (click)="goToPatientHistory(appointment.register_id)">Patient History</button>
+          <button class="action-button" (click)="goToPatientDetails(appointment.register_id)">Patient Details</button>
+        </td>
+        <td>
+          <button class="action-button" (click)="deleteAppointment(appointment.appointment_id)">CLICK IF CHECKED</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div *ngIf="appointments.length === 0">
+  <p>No appointments for today.</p>
+</div>

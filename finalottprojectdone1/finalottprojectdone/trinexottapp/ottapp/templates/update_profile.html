@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Profile</title>
+    <style>
+        body {
+            background-color: #141414; /* Netflix black color */
+            color: #fff; /* Set text color to white */
+            font-family: 'Helvetica', 'Arial', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        form {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            margin: 20px auto; /* Center the form within the container */
+        }
+
+        h2 {
+            color: #e50914; /* Netflix red color */
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            font-size: 16px;
+            border: 1px solid #333;
+            border-radius: 5px;
+            background-color: #333;
+            color: #fff;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #e50914; /* Netflix red color */
+            color: #fff;
+            padding: 10px 15px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #b2070f; /* Darker red on hover */
+        }
+
+        a {
+            color: #e50914; /* Netflix red color for links */
+            text-decoration: none;
+            display: block;
+            margin-top: 15px;
+        }
+
+        a:hover {
+            color: #b2070f; /* Darker red on hover for links */
+        }
+
+        /* Add any additional styles as needed */
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>Update Profile</h2>
+
+        <form method="post" action="">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Update</button>
+        </form>
+
+        <a href="{% url 'profile' customer_id=profile.customer_id %}">Cancel</a>
+    </div>
+
+</body>
+
+</html>

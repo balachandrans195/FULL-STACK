@@ -1,0 +1,74 @@
+<!-- recep-book-appointment.component.html -->
+<div>
+  <label for="search">Search:</label>
+  <input type="text" id="search" [(ngModel)]="searchQuery" (input)="filterPatients()" placeholder="Search by name, register id, contact, or date of visit">
+
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Blood Group</th>
+        <th>Contact</th>
+        <th>Address</th>
+        <th>Gender</th>
+        <th>Date of Birth</th>
+        <th>Date of Visit</th>
+        <th>Weight</th>
+        <th>Height</th>
+        <th>Age</th>
+        <th>Actions</th> <!-- New column for buttons -->
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let patient of filteredPatients">
+        <td>
+          {{ patient.first_name }} {{ patient.last_name }}
+        </td>
+        <td>
+          <span *ngIf="!patient.isEditing">{{ patient.email }}</span>
+          <input *ngIf="patient.isEditing" [(ngModel)]="patient.email" placeholder="Email">
+        </td>
+        <td>
+          {{ patient.blood_group }}
+        </td>
+        <td>
+          <span *ngIf="!patient.isEditing">{{ patient.contact }}</span>
+          <input *ngIf="patient.isEditing" [(ngModel)]="patient.contact" placeholder="Contact">
+        </td>
+        <td>
+          <span *ngIf="!patient.isEditing">{{ patient.address }}</span>
+          <input *ngIf="patient.isEditing" [(ngModel)]="patient.address" placeholder="Address">
+        </td>
+        <td>
+          {{ patient.gender }}
+        </td>
+        <td>
+          {{ patient.dob }}
+        </td>
+        <td>
+          {{ patient.dov }}
+        </td>
+        <td>
+          <span *ngIf="!patient.isEditing">{{ patient.weight }}</span>
+          <input *ngIf="patient.isEditing" [(ngModel)]="patient.weight" placeholder="Weight">
+        </td>
+        <td>
+          <span *ngIf="!patient.isEditing">{{ patient.height }}</span>
+          <input *ngIf="patient.isEditing" [(ngModel)]="patient.height" placeholder="Height">
+        </td>
+        <td>
+          {{ patient.age }}
+        </td>
+        <td>
+          <!-- Use *ngIf to conditionally show/hide buttons based on the isEditing flag -->
+          <button *ngIf="!patient.isEditing" (click)="startEditing(patient)">Edit</button>
+          <button *ngIf="patient.isEditing" (click)="saveChanges(patient)">Save</button>
+
+          <!-- Book Appointment button (you can replace '#book-appointment' with your actual route or function) -->
+          <button (click)="bookAppointment(patient.register_id)">Book Appointment</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Membership Renewal</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end; /* Align items to the right */
+            justify-content: flex-start; /* Align content to the top */
+            height: 100vh;
+            margin: 0;
+            background-color: #111;
+            color: #fff;
+        }
+
+        #container {
+            text-align: center;
+            position: relative;
+            width: 80%; /* Adjusted to 80% width for better centering */
+            margin: auto; /* Center the container horizontally */
+            margin-top: 20px; /* Adjusted margin top */
+        }
+
+        h2 {
+            color: #e50914; /* Netflix red color */
+        }
+
+        img {
+            max-width: 100%;
+            max-height: 70vh;
+            margin-top: 20px;
+            border: 2px solid #e50914; /* Netflix red color */
+            border-radius: 10px;
+        }
+
+        #logout {
+            position: absolute;
+            top: 10px;
+            right: 10px; /* Adjusted to 10px from the top and 10px from the right */
+            color: #e50914; /* Netflix red color */
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <a href="{% url 'logout' %}" id="logout" onclick="logout()">Logout</a>
+        <h2>RENEW YOUR MEMBERSHIP</h2>
+        <img src="/static/qrcode.jpg" alt="Your Membership QR Code">
+    </div>
+
+    <script>
+
+    </script>
+</body>
+</html>

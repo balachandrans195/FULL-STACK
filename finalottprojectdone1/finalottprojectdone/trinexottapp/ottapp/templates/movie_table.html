@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Table</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Styles are defined in the style section -->
+    <style>
+        /* Add your custom styles here */
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #111;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            color: #e50914; /* Netflix red color */
+            margin-left:400px;
+        }
+
+        #search-form {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        #search-results {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        /* Styles for each movie container */
+        div {
+            background-color: #333;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        h2 {
+            color: #e50914; /* Netflix red color */
+            margin-bottom: 10px;
+        }
+
+        img {
+            width: 100%;
+            height: 350px; /* Set a fixed height for all images */
+            object-fit: cover; /* Maintain aspect ratio and cover the container */
+            border-radius: 5px;
+            margin-top: 10px;
+            cursor: pointer; /* Add cursor pointer for clickable images */
+        }
+
+        p {
+            color: #ddd;
+            margin-top: 10px;
+        }
+
+        h3 {
+            margin-top: 15px;
+            color: #e50914; /* Netflix red color */
+        }
+
+        ul {
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            list-style-type: none;
+            margin-bottom: 5px;
+            color: #aaa;
+        }
+
+        .rating-form {
+            margin-top: 15px;
+        }
+
+        label[for="rating"] {
+            display: block;
+            margin-bottom: 5px;
+            color: #ddd;
+        }
+
+        .rating {
+            display: flex;
+            flex-direction: row-reverse;
+        }
+
+        .rating i {
+            font-size: 2em;
+            color: #aaa;
+            cursor: pointer;
+        }
+
+        .rating i:hover,
+        .rating i.selected {
+            color: #e50914; /* Netflix red color */
+        }
+
+        button.submit-rating {
+            background-color: #e50914; /* Netflix red color */
+            color: #fff;
+            padding: 8px 12px;
+            font-size: 14px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        button.watch-movie {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 15px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        hr {
+            margin: 15px 0;
+            border: none;
+            border-top: 1px solid #555;
+        }
+
+        /* Responsive styles for smaller screens */
+        @media (max-width: 600px) {
+            #search-results {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Style for the logout link */
+        #logout {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: #e50914; /* Netflix red color */
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+        }
+         #recently-watched {
+            position: absolute;
+            top: 60px;
+            right: 30px; /* Adjust the positioning as needed */
+            padding: 10px;
+            background-color: #333;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        #recently-watched h3 {
+            color: #e50914; /* Netflix red color */
+            margin-bottom: 10px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Logout Link -->
+    <a href="{% url 'logout' %}" id="logout">Logout</a>
+    <div id="recently-watched">
+        <a href="{% url 'recently_watched' profile.id %}">Recently Watched</a>
+        <!-- Add your content for recently watched movies here -->
+        <!-- You can display the recently watched movies or any relevant information -->
+    </div>
+
+    <!-- Search Bar -->
+    <form id="search-form" method="get">
+        <label for="search">Search:</label>
+        <input type="text" id="search" name="search" value="{{ query }}">
+        <input type="submit" value="Search">
+    </form>
+
+    <!-- Main Heading -->
+    <h1>WELCOME TO TRINEX</h1>
+    <h3>Top Picks For You </h3>
+
+    <!-- Movie Display Loop -->
+    <div id="search-results">
+        {% for movie in movies %}
+        <div class="movie-item" data-movie-id="{{ movie.id }}">
+            <h2>{{ movie.title }}</h2>
+            {% if movie.poster %}
+            <a href="{{ movie.url }}" target="_blank">
+                <img src="{{ movie.poster.url }}" alt="{{ movie.title }} Poster">
+            </a>
+            {% endif %}
+            <p>{{ movie.description }}</p>
+            <h3>Actors:</h3>
+            <ul>
+                {% for actor in movie.cast.all %}
+                <li>{{ actor.name }}</li>
+                {% endfor %}
+            </ul>
+
+            <!-- Rating Form -->
+            <div class="rating">
+                {% csrf_token %}
+                <label for="rating">Rate this movie:</label>
+                <!-- Star ratings -->
+                <i class="far fa-star" data-value="1"></i>
+                <i class="far fa-star" data-value="2"></i>
+                <i class="far fa-star" data-value="3"></i>
+                <i class="far fa-star" data-value="4"></i>
+                <i class="far fa-star" data-value="5"></i>
+                <button type="button" class="submit-rating">Submit Rating</button>
+            </div>
+
+            <!-- Wishlist Option -->
+            <form action="{% url 'add_to_wishlist' movie.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit">Add to Wishlist</button>
+            </form>
+
+            <hr>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Styles -->
+    <style>
+        /* Your existing style definitions */
+    </style>
+
+    <!-- Script for handling the rating submission and star display -->
+     <script>
+    $(document).ready(function () {
+        // Handle star click for rating
+        $('.rating i').on('click', function () {
+            var $star = $(this);
+            var $rating = $star.closest('.rating');
+
+            // Set stars to 'selected' up to the clicked star
+            $star.addClass('fas').removeClass('far');
+            $star.prevAll('i').addClass('fas').removeClass('far');
+            $star.nextAll('i').removeClass('fas').addClass('far');
+        });
+
+        // Handle click on 'Submit Rating' button
+        $('.submit-rating').on('click', function () {
+            var $movieItem = $(this).closest('.movie-item');
+            var movieId = $movieItem.data('movie-id');
+            var rating = $movieItem.find('.fas').length; // Count filled stars
+
+            // AJAX call to submit rating
+            $.ajax({
+                url: "#", // Replace with the actual URL to handle rating submission
+                type: 'POST',
+                data: {
+                    'movie_id': movieId,
+                    'rating': rating,
+                    'csrfmiddlewaretoken': $movieItem.find('[name="csrfmiddlewaretoken"]').val()
+                },
+                success: function(response) {
+                    // Handle success - maybe alert the user or update the page
+                    alert('Rating submitted!');
+                },
+                error: function(xhr, status, error) {
+                    // Handle error
+                    alert('An error occurred: ' + error);
+                }
+            });
+        });
+        // Provided script for live search and recently viewed movies
+            $('.movie-item img').on('click', function () {
+                var movieId = $(this).closest('.movie-item').data('movie-id');
+                var profileId = '{{ profile.id }}';
+
+                $.ajax({
+                    url: '{% url "recently_viewed_movie" %}',
+                    type: 'POST',
+                    data: {
+                        'movie_id': movieId,
+                        'profile_id': profileId,
+                        'csrfmiddlewaretoken': '{{ csrf_token }}'
+                    },
+                    success: function (data) {
+                        console.log(data.success_message);
+                    },
+                    error: function () {
+                        console.log('Error adding Recently Viewed.');
+                    }
+                });
+            });
+
+        // AJAX for live search
+        $('#search-form').on('submit', function (e) {
+            e.preventDefault();
+            var query = $('#search').val();
+
+            $.ajax({
+                url: '{% url "search_movies" %}',
+                type: 'get',
+                data: { 'search': query },
+                success: function (data) {
+                    $('#search-results').html(data);
+                },
+                error: function () {
+                    console.log('Error in live search.');
+                }
+            });
+        });
+
+        // Handle click on Recently Watched link
+        $('#recently-watched a').on('click', function (e) {
+            e.preventDefault();
+
+            // Get the profile ID (replace '123' with the actual profile ID variable)
+            var profileId = '123';
+
+            // Redirect to the recently watched page
+            window.location.href = '{% url "recently_watched" profile.id %}';
+        });
+
+        // AJAX for adding a movie to Recently Watched
+        $('.movie-item img').on('click', function () {
+            var movieId = $(this).closest('.movie-item').data('movie-id');
+            var profileId = '{{ profile.id }}';
+
+            $.ajax({
+                url: '{% url "recently_watched" profile.id %}',
+                type: 'POST',
+                data: {
+                    'movie_id': movieId,
+                    'profile_id': profileId,
+                    'csrfmiddlewaretoken': '{{ csrf_token }}'
+                },
+                success: function (data) {
+                    console.log(data.success_message);
+                },
+                error: function () {
+                    console.log('Error adding Recently Viewed.');
+                }
+            });
+        });
+    });
+</script>
+
+</body>
+</html>

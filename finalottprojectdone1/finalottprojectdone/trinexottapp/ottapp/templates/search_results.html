@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <style>
+        /* Add your custom styles here */
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #111;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            color: #e50914; /* Netflix red color */
+        }
+
+        div {
+            background-color: #333;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: #e50914; /* Netflix red color */
+            margin-bottom: 10px;
+        }
+
+        img {
+            width: 100%;
+            height: 350px; /* Set a fixed height for all images */
+            object-fit: cover; /* Maintain aspect ratio and cover the container */
+            border-radius: 5px;
+            margin-top: 10px;
+            cursor: pointer; /* Add cursor pointer for clickable images */
+        }
+
+        p {
+            color: #ddd;
+            margin-top: 10px;
+        }
+
+        h3 {
+            margin-top: 15px;
+            color: #e50914; /* Netflix red color */
+        }
+
+        ul {
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            list-style-type: none;
+            margin-bottom: 5px;
+            color: #aaa;
+        }
+
+        hr {
+            margin: 15px 0;
+            border: none;
+            border-top: 1px solid #555;
+        }
+
+        /* Style for the back link */
+        .back-link {
+            color: #e50914; /* Netflix red color */
+            text-decoration: none;
+            font-size: 18px;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        /* Additional styles for search results */
+        p.no-results {
+            color: #e50914;
+            font-weight: bold;
+        }
+
+        /* Styles for rating */
+        .rating-form {
+            margin-top: 15px;
+        }
+
+        label[for="rating"] {
+            display: block;
+            margin-bottom: 5px;
+            color: #ddd;
+        }
+
+        .rating {
+            display: flex;
+            flex-direction: row-reverse;
+        }
+
+        .rating i {
+            font-size: 2em;
+            color: #aaa;
+            cursor: pointer;
+        }
+
+        .rating i:hover,
+        .rating i.selected {
+            color: #e50914; /* Netflix red color */
+        }
+
+        button.submit-rating {
+            background-color: #e50914; /* Netflix red color */
+            color: #fff;
+            padding: 8px 12px;
+            font-size: 14px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Back Link -->
+    <a href="#" class="back-link">&lt; Back to Search</a>
+
+    {% if query %}
+        <p>Showing results for: "{{ query }}"</p>
+    {% endif %}
+
+    {% if movies %}
+        {% for movie in movies %}
+            <div class="movie-item" data-movie-id="{{ movie.id }}">
+                <h2>{{ movie.title }}</h2>
+                {% if movie.poster %}
+                    <a href="{{ movie.url }}" target="_blank">
+                        <img src="{{ movie.poster.url }}" alt="{{ movie.title }} Poster" style="max-width: 300px;">
+                    </a>
+                {% endif %}
+                <p>{{ movie.description }}</p>
+                <h3>Actors:</h3>
+                <ul>
+                    {% for actor in movie.cast.all %}
+                        <li>{{ actor.name }}</li>
+                    {% endfor %}
+                </ul>
+                <hr>
+
+                <!-- Rating Form -->
+                <div class="rating-form">
+                    <label for="rating">Rate this movie:</label>
+                    <!-- Star ratings -->
+                    <div class="rating">
+                        <i class="far fa-star" data-value="1"></i>
+                        <i class="far fa-star" data-value="2"></i>
+                        <i class="far fa-star" data-value="3"></i>
+                        <i class="far fa-star" data-value="4"></i>
+                        <i class="far fa-star" data-value="5"></i>
+                    </div>
+                    <button type="button" class="submit-rating">Submit Rating</button>
+                </div>
+
+                <!-- Wishlist Option -->
+                <form action="{% url 'add_to_wishlist' movie.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit">Add to Wishlist</button>
+                </form>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p class="no-results">No results found.</p>
+    {% endif %}
+
+    <!-- Script for handling the back link and rating submission -->
+    <script>
+        document.querySelector('.back-link').addEventListener('click', function (event) {
+            event.preventDefault();
+            history.back();
+        });
+
+        $('.rating i').on('click', function () {
+            var $star = $(this);
+            var $rating = $star.closest('.rating');
+
+            $star.addClass('fas').removeClass('far');
+            $star.prevAll('i').addClass('fas').removeClass('far');
+            $star.nextAll('i').removeClass('fas').addClass('far');
+        });
+
+        $('.submit-rating').on('click', function () {
+            var $movieItem = $(this).closest('.movie-item');
+            var movieId = $movieItem.data('movie-id');
+            var rating = $movieItem.find('.fas').length;
+
+            // AJAX call to submit rating
+            $.ajax({
+                url: "#", // URL to Django view that handles rating submission
+                type: 'POST',
+                data: {
+                    'movie_id': movieId,
+                    'rating': rating,
+                    'csrfmiddlewaretoken': $movieItem.find('[name="csrfmiddlewaretoken"]').val()
+                },
+                success: function (response) {
+                    alert('Rating submitted!');
+                },
+                error: function (xhr, status, error) {
+                    alert('An error occurred: ' + error);
+                }
+            });
+        });
+    </script>
+
+    <!-- Provided script for live search and recently viewed movies -->
+    <script>
+        // Provided script for live search and recently viewed movies
+        $('.movie-item img').on('click', function () {
+            var movieId = $(this).closest('.movie-item').data('movie-id');
+            var profileId = '{{ profile.id }}';
+
+            $.ajax({
+                url: '{% url "recently_viewed_movie" %}',
+                type: 'POST',
+                data: {
+                    'movie_id': movieId,
+                    'profile_id': profileId,
+                    'csrfmiddlewaretoken': '{{ csrf_token }}'
+                },
+                success: function (data) {
+                    console.log(data.success_message);
+                },
+                error: function () {
+                    console.log('Error adding Recently Viewed.');
+                }
+            });
+        });
+
+        // AJAX for live search
+        // Update: AJAX for instant live search while typing
+        $('#search').on('input', function () {
+            var query = $(this).val();
+
+            $.ajax({
+                url: '{% url "search_movies" %}',
+                type: 'get',
+                data: { 'search': query },
+                success: function (data) {
+                    $('#search-results').html(data);
+                },
+                error: function () {
+                    console.log('Error in live search.');
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ app_name }} - Home</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            height: 100vh;
+            background: url('/static/frontbg.jpg') center/cover no-repeat;
+            background-size: cover;
+        }
+
+        header {
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            height: 20%;
+            transition: background-color 0.3s ease; /* Add transition effect */
+        }
+
+        header:hover {
+            background-color: rgba(0, 0, 0, 0.5); /* Darken the header on hover */
+        }
+
+        header img {
+            height: auto;
+            max-height: 60px;
+            width: 200px;
+            max-width: 100%;
+        }
+
+        header h1 {
+            color: white;
+            margin: 0;
+        }
+
+        header .center {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        header a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+
+        header a:hover {
+            text-decoration: underline;
+        }
+
+        main {
+            flex: 1;
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center;
+            color: white;
+            margin-top: 20vh;
+            transition: transform 0.3s ease; /* Add transition effect */
+        }
+
+        main:hover {
+            transform: scale(1.02); /* Zoom in slightly on hover */
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            position: relative;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .footer a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="/static/trinex.jpg" alt="Netflix Logo" >
+        <div class="center">
+            <h1>{{ app_name }}</h1>
+        </div>
+        <a href="#"></a>
+    </header>
+
+    <main>
+        <div>
+            <p>WATCH EVERYWHERE</p>
+            <p>Stream on your phone, laptop, tablet, and TV</p>
+        </div>
+    </main>
+
+    <div class="footer">
+        <a href="{% url 'login' %}">Sign In</a>
+    </div>
+</body>
+</html>

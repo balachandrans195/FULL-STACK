@@ -1,0 +1,81 @@
+<!-- profile_creation.html -->
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Adult Profile</title>
+
+    <style>
+        body {
+            background-color: #333; /* Dark background color */
+            color: #fff; /* Light text color */
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h2 {
+            color: #ff0000; /* Red heading color */
+        }
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #555; /* Dark form background color */
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        label {
+            color: #fff; /* Light label text color */
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 8px;
+            margin-bottom: 16px;
+            display: inline-block;
+            box-sizing: border-box;
+            background-color: #444; /* Dark input background color */
+            color: #fff; /* Light input text color */
+            border: 1px solid #777; /* Border color */
+            border-radius: 5px;
+        }
+
+        input[type="submit"] {
+            background-color: #ff0000; /* Red submit button color */
+            cursor: pointer;
+        }
+
+        /* Add any additional styles as needed */
+
+    </style>
+
+    <!-- Add any additional CSS links or styles if needed -->
+
+</head>
+<body>
+
+<h2>Create Your Profile</h2>
+
+<script>
+    // Check if there's an alert message in the context and display an alert
+    var alertMessage = "{{ alert_message }}";
+    if (alertMessage) {
+        alert(alertMessage);
+    }
+</script>
+
+<form method="post" action="{% url 'profile_creation' customer_id=customer.id %}" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Create Profile">
+</form>
+
+<!-- Include any additional content or styling if needed -->
+
+</body>
+</html>

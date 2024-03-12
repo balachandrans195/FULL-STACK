@@ -1,0 +1,223 @@
+<!-- registration.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta tags for character set and viewport -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Title of the page -->
+    <title>YourApp - Registration</title>
+
+    <!-- Styles for the page -->
+    <style>
+        /* Resetting some default styles and setting up the body */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('/static/linelight.gif') center center fixed;
+            background-size: cover;
+        }
+
+        /* Styling for the header section */
+        header {
+            background-color: #e50914;
+            color: white;
+            padding: 10px;
+        }
+
+        /* Styling for the header content, making it flex for alignment */
+        header div {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Styling for header links, removing underline and setting color */
+        header a {
+            color: white;
+            text-decoration: none;
+        }
+
+        /* Styling for the main content container */
+        div {
+            max-width: 400px;
+            margin: 50px auto;
+            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Styling for the main heading */
+        h2 {
+            color: #333;
+        }
+
+        /* Styling for the form container */
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Styling for form labels */
+        label {
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        /* Styling for form inputs and select */
+        input, select {
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+
+        /* Styling for the submit button */
+        button {
+            background-color: #e50914;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        /* Hover effect for the submit button */
+        button:hover {
+            background-color: #cc0814;
+        }
+
+        /* Styling for the TRINEX header and login link */
+        .bala {
+            text-align: center;
+        }
+
+        .bala h1 {
+            color: black;
+            padding-left: 130px;
+            margin: 0; /* Remove default margin for h1 */
+        }
+
+        .bala h1 a {
+            color: red;
+        }
+
+        /* Styling for form errors */
+        .alert {
+            margin-bottom: 15px;
+            padding: 15px;
+            border: 1px solid #d9534f;
+            border-radius: 4px;
+            color: #d9534f;
+            background-color: #f2dede;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header section with TRINEX title and login link -->
+    <header>
+        <div class="bala">
+            <h1><a href="{% url 'home' %}">TRINEX</a></h1>
+
+        </div>
+    </header>
+
+    <!-- Main content container for registration form -->
+    <div>
+        <!-- Display form errors at the top of the form -->
+        {% if form.errors %}
+            <div class="alert">
+                <strong>NOTE:</strong> Please correct the following FIELDS.
+                <ul>
+                    {% for field, errors in form.errors.items %}
+                        {% for error in errors %}
+                            <li>{{ field }}: {{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+        <!-- Main heading for the registration form -->
+        <h2>Registration</h2>
+
+        <!-- Registration form with method, action, and CSRF token -->
+        <form method="post" action="{% url 'registration' %}">
+            {% csrf_token %}
+
+            <!-- Form field for username -->
+            <div>
+                <label for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
+                {{ form.username }}
+                <!-- Display individual field errors -->
+                {{ form.username.errors }}
+            </div>
+
+            <!-- Form field for password -->
+            <div>
+                <label for="{{ form.password.id_for_label }}">{{ form.password.label }}</label>
+                {{ form.password }}
+                <!-- Display individual field errors -->
+                {{ form.password.errors }}
+            </div>
+
+            <!-- Form field for first name -->
+            <div>
+                <label for="{{ form.first_name.id_for_label }}">{{ form.first_name.label }}</label>
+                {{ form.first_name }}
+                <!-- Display individual field errors -->
+                {{ form.first_name.errors }}
+            </div>
+
+            <!-- Form field for last name -->
+            <div>
+                <label for="{{ form.last_name.id_for_label }}">{{ form.last_name.label }}</label>
+                {{ form.last_name }}
+                <!-- Display individual field errors -->
+                {{ form.last_name.errors }}
+            </div>
+
+            <!-- Form field for email -->
+            <div>
+                <label for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
+                {{ form.email }}
+                <!-- Display individual field errors -->
+                {{ form.email.errors }}
+            </div>
+
+            <!-- Form field for date of birth -->
+            <div>
+                <label for="{{ form.dob.id_for_label }}">{{ form.dob.label }}</label>
+                {{ form.dob }}
+                <!-- Display individual field errors -->
+                {{ form.dob.errors }}
+            </div>
+
+            <!-- Form field for phone number -->
+            <div>
+                <label for="{{ form.phone_number.id_for_label }}">{{ form.phone_number.label }}</label>
+                {{ form.phone_number }}
+                <!-- Display individual field errors -->
+                {{ form.phone_number.errors }}
+            </div>
+
+            <!-- Form field for payment method -->
+            <div>
+                <label for="{{ form.payment_method.id_for_label }}">{{ form.payment_method.label }}</label>
+                {{ form.payment_method }}
+                <!-- Display individual field errors -->
+                {{ form.payment_method.errors }}
+            </div>
+
+            <!-- Submit button for form submission -->
+            <button type="submit">Register</button>
+        </form>
+    </div>
+</body>
+</html>

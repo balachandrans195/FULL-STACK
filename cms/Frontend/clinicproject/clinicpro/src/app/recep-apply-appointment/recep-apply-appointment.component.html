@@ -1,0 +1,15 @@
+<div>
+  <label for="staff_id">DOCTOR NAME:</label>
+  <select name="staff_id" id="staff_id" [(ngModel)]="appointmentData.staff_id" required>
+    <option value="" disabled selected>Select an option</option>
+    <option *ngFor="let item of filteredData" [value]="item.staff_id">{{ item.staff_name + ' ' + (item.department | departmentName) }}</option>
+  </select>
+
+  <label for="apnt_date">Appointment Date:</label>
+  <input type="datetime-local" id="apnt_date" [(ngModel)]="appointmentData.apnt_date" name="apnt_date" required (change)="validateAppointmentTime()">
+
+  <div *ngIf="!isAppointmentTimeValid()">Appointment time must be between 9 am and 6 pm.</div>
+</div>
+
+<button type="button" (click)="onSubmit()">Book Appointment</button>
+<button type="button" (click)="logout()">Log Out</button>

@@ -1,0 +1,52 @@
+/* styles.scss */
+
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+  }
+  
+  /* Centering the toastr container */
+  .toast-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    width: 60%; /* Adjust the width as needed */
+    max-width: 400px; /* Set a maximum width if desired */
+  }
+  
+  /* Toast message styling */
+  .toast-message {
+    font-size: 16px;
+    line-height: 1.5;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Success toast styling */
+  .toast-success {
+    background-color: #4caf50;
+    color: #fff;
+  }
+  
+  /* Error toast styling */
+  .toast-error {
+    background-color: #f44336;
+    color: #fff;
+  }
+  
+  /* Info toast styling */
+  .toast-info {
+    background-color: #2196f3;
+    color: #fff;
+  }
+  
+  /* Warning toast styling */
+  .toast-warning {
+    background-color: #ff9800;
+    color: #fff;
+  }
+  

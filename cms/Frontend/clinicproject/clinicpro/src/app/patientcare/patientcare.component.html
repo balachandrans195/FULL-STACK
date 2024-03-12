@@ -1,0 +1,37 @@
+<!-- patientcare.component.html -->
+
+<h1>Patient Care Details</h1>
+
+<div *ngIf="diagnosisData.length > 0">
+  <table>
+    <thead>
+      <tr>
+        <!-- <th>Diagnosis ID</th> -->
+        <th>Register ID</th>
+        <th>Diagnosis</th>
+        <th>Medicine Prefered</th>
+        <th>Take Test</th>
+        <th>Notes</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let diagnosis of diagnosisData">
+        <!-- <td>{{ diagnosis.diagnosis_id }}</td> -->
+        <td>{{ diagnosis.register_id }}</td>
+        <td>{{ diagnosis.diagnosis }}</td>
+        <td>{{ diagnosis.Medicine_prefered }}</td>
+        <td>{{ diagnosis.Take_test }}</td>
+        <td>{{ diagnosis.notes }}</td>
+        <td>
+            <button (click)="proceed(diagnosis.register_id)">Proceed</button>
+            <button (click)="deleteDiagnosis(diagnosis.diagnosis_id)">Click if Checked</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div *ngIf="diagnosisData.length === 0">
+  <p>No diagnosis data available.</p>
+</div>

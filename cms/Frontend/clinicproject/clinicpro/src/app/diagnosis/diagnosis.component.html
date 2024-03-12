@@ -1,0 +1,21 @@
+<form method="post" (ngSubmit)="onSubmit()">
+    <!-- Diagnosis -->
+    <label for="diagnosis">Diagnosis:</label>
+    <input type="text" [(ngModel)]="Diagnosis.diagnosis" name="diagnosis" id="diagnosis" maxlength="255" required>
+
+    <!-- Medicine Preferred -->
+    <label for="Medicine_prefered">Medicine Preferred:</label>
+    <input type="text" [(ngModel)]="Diagnosis.Medicine_prefered" name="Medicine_prefered" id="Medicine_prefered" maxlength="255">
+
+    <!-- Take Test -->
+    <label for="Take_test">Take Test:</label>
+    <input type="text" [(ngModel)]="Diagnosis.Take_test" name="Take_test" id="Take_test" maxlength="255">
+
+    <!-- Notes -->
+    <label for="notes">Notes:</label>
+    <textarea [(ngModel)]="Diagnosis.notes" name="notes" id="notes" rows="4" maxlength="500"></textarea>
+
+    <!-- Submit button -->
+    <button type="submit">Submit</button>
+    <button type="button" (click)="logout()">Log Out</button>
+</form>

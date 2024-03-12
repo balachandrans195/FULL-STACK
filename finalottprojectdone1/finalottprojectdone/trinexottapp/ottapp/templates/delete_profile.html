@@ -1,0 +1,47 @@
+<!-- ottapp/templates/delete_profile.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Profile</title>
+    <style>
+        body {
+            background-color: #000; /* Set background color to black */
+            color: #f00; /* Set text color to red */
+            font-family: Arial, sans-serif; /* Use a common font for better compatibility */
+        }
+
+        h2 {
+            color: #f00; /* Set heading color to red */
+        }
+
+        p {
+            color: #f00; /* Set paragraph text color to red */
+        }
+
+        button {
+            background-color: #f00; /* Set button background color to red */
+            color: #000; /* Set button text color to black */
+            padding: 10px 15px; /* Add some padding for better appearance */
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #800; /* Darker red on hover */
+        }
+
+        /* Add any additional styles as needed */
+    </style>
+</head>
+<body>
+
+<h2>Delete Profile</h2>
+<p>Are you sure you want to delete the profile for {{ profile.profilename }}?</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Delete Profile</button>
+</form>
+
+</body>
+</html>

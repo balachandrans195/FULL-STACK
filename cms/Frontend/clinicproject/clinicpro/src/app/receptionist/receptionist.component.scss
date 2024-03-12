@@ -1,0 +1,89 @@
+/* receptionist.component.scss */
+
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+  }
+  
+  h1, h2 {
+    color: #008000; /* Green Color */
+  }
+  
+  /* Navigation Buttons */
+  .button-container {
+    display: flex;
+    justify-content: space-evenly;
+    margin: 20px 0;
+  }
+  
+  .button {
+    display: inline-block;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #fff;
+    background-color: #008000;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+  }
+  
+  .button:hover {
+    background-color: #006400; /* Darker Green on Hover */
+  }
+  
+  /* Search Input */
+  label {
+    display: block;
+    margin-top: 10px;
+    color: #008000;
+  }
+  
+  input {
+    padding: 8px;
+    border: 1px solid #008000;
+    border-radius: 5px;
+    margin-bottom: 20px;
+  }
+  
+  /* Display Booked Appointments */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #e0ffe0; /* Light Green Background */
+  }
+  
+  th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #008000; /* Green Border */
+    color: #008000; /* Green Color */
+  }
+ 
+  
+  th {
+    background-color: #a0d0a0; /* Darker Green Header */
+  }
+  
+  tr:hover {
+    background-color: #c0f0c0; /* Slightly Darker Green on Hover */
+    transition: background-color 0.3s;
+  }
+  
+  /* Delete Button */
+  button {
+    padding: 8px 12px;
+    background-color: #dc3545; /* Bootstrap Red for Danger */
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  button:hover {
+    background-color: #c82333; /* Darker Red on Hover */
+  }
+  

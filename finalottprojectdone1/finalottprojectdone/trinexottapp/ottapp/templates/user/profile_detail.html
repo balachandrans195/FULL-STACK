@@ -1,0 +1,20 @@
+<!-- user/profile_detail.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>All Profiles</title>
+</head>
+<body>
+    <h1>All Profiles</h1>
+
+    {% for profile in all_profiles %}
+        <p>Profile name: {{ profile.profilename }}</p>
+        <!-- Display other profile details as needed -->
+    {% endfor %}
+
+    <!-- Handle the case when no profiles are found -->
+    {% if not all_profiles %}
+        <p>No profiles found.</p>
+    {% endif %}
+</body>
+</html>

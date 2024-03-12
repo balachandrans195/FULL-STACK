@@ -1,0 +1,38 @@
+<!-- pharmacist.component.html -->
+
+<div>
+    <button routerLink="/patientcare">Patient Care</button>
+    <button routerLink="/medicine">Add Medicine</button>
+</div>
+
+<div>
+    <label for="search">Search:</label>
+    <input type="text" id="search" [(ngModel)]="searchQuery" (input)="filterMedicines()" placeholder="Search by Generic Name or Medicine Name">
+</div>
+
+<div *ngIf="medicines && medicines.length > 0">
+    <table>
+        <thead>
+            <tr>
+                <th>Generic Name</th>
+                <th>Medicine Name</th>
+                <th>Price Per Unit</th>
+                <th>Expiration Date</th>
+                <th>Action</th>
+                <!-- Add other headers as needed -->
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let medicine of filteredMedicines">
+                <td>{{ medicine.generic_name }}</td>
+                <td>{{ medicine.med_name }}</td>
+                <td>{{ medicine.price_per_unit }}</td>
+                <td>{{ medicine.exp_date | date }}</td>
+                <td>
+                    <button (click)="deleteMedicine(medicine.med_id)">Delete</button>
+                </td>
+                <!-- Add other cells as needed -->
+            </tr>
+        </tbody>
+    </table>
+</div>

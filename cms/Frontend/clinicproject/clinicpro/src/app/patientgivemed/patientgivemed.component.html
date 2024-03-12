@@ -1,0 +1,16 @@
+<div class="bala">
+    <h1>Select Medicine</h1>
+
+<select [(ngModel)]="selectedMedicine">
+  <option *ngFor="let medicine of medicines" [value]="medicine.med_id">
+    {{ medicine.generic_name }} - {{ medicine.med_name }} (Price: ${{ medicine.price_per_unit.toFixed(2) }})
+  </option>
+</select>
+
+<label for="quantity">Quantity:</label>
+<input type="number" id="quantity" [(ngModel)]="quantity" />
+
+<!-- Submit button -->
+<button (click)="submitForm()">Submit</button>
+
+</div>

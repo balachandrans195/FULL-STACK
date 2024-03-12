@@ -1,0 +1,48 @@
+/* recep-check-availability.component.scss */
+
+/* Add general styling for the component */
+:host {
+  display: block;
+  padding: 20px;
+}
+
+/* Style for the title */
+p {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+/* Style for each staff entry */
+div {
+  margin-top: 20px;
+  background-color: #fff;
+  transition: background-color 0.3s;
+}
+
+/* Hover effect on staff entries */
+div:hover {
+  background-color: #f9f9f9;
+}
+
+/* Additional styling for the staff details */
+p {
+  font-size: 1em;
+  line-height: 1.5;
+  color: #555;
+  margin: 0;
+}
+
+/* Style for the "Not available" text */
+.not-available {
+  color: #999;
+}
+
+/* Optional: Add some border and shadow to each staff entry for better separation */
+div {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}

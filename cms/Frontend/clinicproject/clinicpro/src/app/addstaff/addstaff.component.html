@@ -1,0 +1,93 @@
+<!-- add-staff.component.html -->
+
+<div class="form-container">
+  <h2>Add Staff</h2>
+  
+  <form (ngSubmit)="registerStaff()" #staffForm="ngForm">
+
+    <!-- Staff Name -->
+    <div class="form-group">
+        <label for="staff_name">Staff Name:</label>
+        <input nameValidation type="text" id="staff_name" [(ngModel)]="staffData.staff_name" name="staff_name" required>
+    </div>
+
+    <!-- Phone Number -->
+    <div class="form-group">
+        <label for="phno">Phone Number:</label>
+        <input type="tel" id="phno" [(ngModel)]="staffData.phno" name="phno" required pattern="[0-9]+"
+         maxlength="10" minlength="10"  >
+         <div *ngIf="!isValidContact()">Please enter a valid 10-digit contact number.</div>
+    </div>
+
+    <!-- Address -->
+    <div class="form-group">
+      <label for="address">Address:</label>
+      <textarea id="address" [(ngModel)]="staffData.address" name="address" required></textarea>
+    </div>
+
+    <!-- Date of Birth -->
+    <div class="form-group">
+      <label for="dob">Date of Birth:</label>
+      <input type="date" id="dob" [(ngModel)]="staffData.dob" name="dob" required>
+    </div>
+
+    <!-- Qualification -->
+    <div class="form-group">
+      <label for="qualification">Qualification:</label>
+      <input nameValidation type="text" id="qualification" [(ngModel)]="staffData.qualification" name="qualification" required pattern="[a-zA-Z ]+" >
+    </div>
+
+    <!-- Salary -->
+    <div class="form-group">
+      <label for="salary">Salary:</label>
+      <input type="number" id="salary" [(ngModel)]="staffData.salary" name="salary" required>
+      <div *ngIf="!isValidSalary()">Salary should be above 3000.</div>
+    </div>
+
+    <!-- Email -->
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" id="email" [(ngModel)]="staffData.email" name="email" required>
+    </div>
+
+    <!-- Role -->
+    <div class="form-group">
+      <label for="role">Role:</label>
+      <select id="role" [(ngModel)]="staffData.role" name="role" required>
+        <option value=3>PHARMACIST</option>
+        <option value=4>RECEPTIONIST</option>
+        <option value=5>LABTECHNICIAN</option>
+        <!-- Add more roles as needed -->
+      </select>
+    </div>
+
+    <!-- Gender -->
+    <div class="form-group">
+      <label for="gender">Gender:</label>
+      <select id="gender" [(ngModel)]="staffData.gender" name="gender" required>
+        <option value="M">Male</option>
+        <option value="F">Female</option>
+      </select>
+    </div>
+
+    <!-- Blood Group -->
+    <div class="form-group">
+      <label for="blood_group">Blood Group:</label>
+      <input type="text" id="blood_group" [(ngModel)]="staffData.blood_group" name="blood_group" required pattern="^(A|B|AB|O)[+-]?(Rh[+-])?$">
+    </div>
+
+    <!-- Password -->
+    <div class="form-group">
+      <label for="password">Password:</label>
+      <input type="password" id="password" [(ngModel)]="staffData.password" name="password" required>
+      <div *ngIf="!isValidPassword()">Password should be at least 6 characters with a combination of alphabets and numbers.</div>
+    </div>
+
+    
+    <button type="submit" [disabled]="!staffForm.form.valid || !isValidSalary() || !isValidPassword()">Register Staff</button>
+     
+
+      
+
+  </form>
+</div>

@@ -1,0 +1,75 @@
+<!-- pin_verification.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Enter PIN</title>
+    <style>
+        body {
+            background-color: #000; /* Set background color to black */
+            color: #fff; /* Set text color to white */
+            font-family: 'Helvetica', 'Arial', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        form {
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            font-size: 16px;
+            border: 1px solid #333;
+            border-radius: 5px;
+            background-color: #333;
+            color: #fff;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #e50914; /* Netflix red color */
+            color: #fff;
+            padding: 10px 15px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #b2070f; /* Darker red on hover */
+        }
+
+        /* Add any additional styles as needed */
+    </style>
+    <!-- Add any additional styles or scripts as needed -->
+</head>
+<body>
+
+<form method="post">
+    {% csrf_token %}
+    <label for="pin">Enter PIN:</label>
+    {{ pin_form.pin }}
+    <br>
+    <button type="submit">Submit</button>
+</form>
+
+</body>
+</html>
